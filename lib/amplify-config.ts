@@ -1,11 +1,18 @@
 import { Amplify } from 'aws-amplify';
 
+const userPoolId = process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID;
+const userPoolClientId = process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID;
+
+if (!userPoolId || !userPoolClientId) {
+  throw new Error('Missing Cognito config');
+}
+
 export const configureAmplify = () => {
   Amplify.configure({
     Auth: {
       Cognito: {
-        userPoolId: 'us-east-1_BbyvalMOb',
-        userPoolClientId: '7783kecd24msmcls04vv1s86c0',
+        userPoolId,
+        userPoolClientId: userPoolClientId,
       }
     }
   }, { ssr: true });
