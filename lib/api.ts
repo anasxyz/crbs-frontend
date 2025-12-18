@@ -1,4 +1,3 @@
-// src/lib/api.ts
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 let accessToken: string | null = null;
