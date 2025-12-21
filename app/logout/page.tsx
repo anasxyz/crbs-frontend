@@ -4,9 +4,7 @@ import { signOut } from 'aws-amplify/auth';
 import { useRouter } from 'next/navigation';
 import { configureAmplify } from '@/lib/amplify-config';
 
-import _button from '@/components/_button';
-
-configureAmplify();
+import _button from '@/components/ui/_button';
 
 export default function LogoutPage() {
   const router = useRouter();

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import _button from '../components/_button';
+import _button from '@/components/ui/_button';
 
 export default function Home() {
   return (

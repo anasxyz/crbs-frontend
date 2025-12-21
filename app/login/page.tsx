@@ -3,9 +3,7 @@
 import { signIn, fetchAuthSession } from 'aws-amplify/auth';
 import { configureAmplify } from '@/lib/amplify-config';
 
-import _button from '@/components/_button';
-
-configureAmplify();
+import _button from '@/components/ui/_button';
 
 export default function LoginPage() {
   const handleLogin = async () => {
