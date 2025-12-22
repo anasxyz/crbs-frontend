@@ -1,14 +1,13 @@
 'use client';
 
 import { signUp } from 'aws-amplify/auth';
-import { configureAmplify } from '@/lib/amplify-config';
 
 import _button from '@/components/ui/_button';
 
 export default function SignUpPage() {
-  const testEmail = "testUser@example.com";
+  const testEmail = "anas@example.com";
   const testPassword = "Password123!";
-  const testUsername = "testUser";
+  const testUsername = "anas";
 
   const handleSignUp = async () => {
     try {
