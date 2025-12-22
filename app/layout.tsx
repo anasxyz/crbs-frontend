@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { AuthProvider } from "@/context/AuthProvider";
 import ConfigureAmplify from "@/components/amplify/ConfigureAmplify";
+import _navbar from "@/components/ui/_navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <ConfigureAmplify />
         <AuthProvider>
+          <_navbar />
           {children}
         </AuthProvider>
       </body>

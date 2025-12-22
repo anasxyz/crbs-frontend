@@ -7,8 +7,7 @@ import _navbar from '@/components/ui/_navbar';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans">
-      <_navbar />
+    <div className="min-h-screen">
       <main className="max-w-5xl mx-auto px-8 pt-32 pb-20">
         <h1 className="text-6xl md:text-8xl font-medium tracking-tighter mb-8">
           Design with <br />
