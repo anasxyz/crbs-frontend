@@ -1,61 +1,22 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
-
-let accessToken: string | null = null;
-
-export const setAccessToken = (token: string) => {
-  accessToken = token;
-};
-
-export const clearAccessToken = () => {
-  accessToken = null;
-};
+import axios from 'axios';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_AUTH_SERVICE_URL,
-  withCredentials: true,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    if (accessToken) {
-      config.headers.set("Authorization", `Bearer ${accessToken}`);
+api.interceptors.request.use(async (config) => {
+  try {
+    const session = await fetchAuthSession();
+    const token = session.tokens?.idToken?.toString();
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return config;
+  } catch (error) {
+    console.error("No auth session found", error);
   }
-);
-
-api.interceptors.response.use(
-  (response) => response,
-  async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & {
-      _retry?: boolean;
-    };
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      try {
-        const refreshRes = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, // TODO: implement refresh endpoint
-          {},
-          { withCredentials: true }
-        );
-
-        accessToken = refreshRes.data.accessToken;
-        originalRequest.headers.set(
-          "Authorization",
-          `Bearer ${accessToken}`
-        );
-
-        return api(originalRequest);
-      } catch {
-        clearAccessToken();
-        window.location.href = "/login";
-      }
-    }
-
-    return Promise.reject(error);
-  }
-);
+  return config;
+})
 
 export default api;

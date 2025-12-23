@@ -3,6 +3,7 @@
 import { useAuth } from '@/context/AuthProvider';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import _loader from '@/components/ui/_loader';
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoading } = useAuth();
@@ -14,7 +15,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     }
   }, [user, isLoading, router]);
 
-  if (isLoading) return <div>Checking authentication...</div>;
+  if (isLoading) return <_loader />;
 
   return user ? <>{children}</> : null;
 };
