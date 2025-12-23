@@ -5,19 +5,19 @@ import { Booking, Room, User, Location, Weather } from '@/types/api';
  * booking service
  */
 export const BookingService = {
-  getAll: () => api.get<Booking[]>('/bookings'),
-  getById: (id: string) => api.get<Booking>(`/bookings/${id}`),
-  getByUser: (userId: string) => api.get<Booking[]>(`/bookings/user/${userId}`),
-  create: (data: Partial<Booking>) => api.post<Booking>('/bookings', data),
-  update: (id: string, data: Partial<Booking>) => api.patch<Booking>(`/bookings/${id}`, data),
-  cancel: (id: string) => api.delete(`/bookings/${id}`),
+  getAll: () => api.get<Booking[]>('/booking/all'),
+  getById: (id: string) => api.get<Booking>(`/booking/${id}`),
+  getByUserId: (userId: string) => api.get<Booking[]>(`/booking/user/${userId}`),
+  create: (data: Partial<Booking>) => api.post<Booking>('/booking/new', data),
+  update: (id: string, data: Partial<Booking>) => api.patch<Booking>(`/booking/${id}`, data),
+  cancel: (id: string) => api.delete(`/booking/${id}`),
 };
 
 /**
  * user service
  */
 export const UserService = {
-  getProfile: () => api.get<User>('/user/profile'),
+  getProfile: (userId: string) => api.get<User>(`/user/${userId}`),
   updateProfile: (data: Partial<User>) => api.patch<User>('/user/profile', data),
   getSettings: () => api.get<any>('/user/settings'),
   updateSettings: (data: any) => api.patch<any>('/user/settings', data),

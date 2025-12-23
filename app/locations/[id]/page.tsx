@@ -45,7 +45,7 @@ export default function LocationRoomsPage({ params }: { params: Promise<{ id: st
           rooms.map((room) => (
             <Link
               key={room.roomId}
-              href={`/book/${room.roomId}`}
+              href={`/locations/${id}/rooms/${room.roomId}`}
               className="group flex items-center justify-between py-6 border border-white/30 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors px-6 rounded-xl mb-2"
             >
               <div className="space-y-1">
@@ -62,7 +62,6 @@ export default function LocationRoomsPage({ params }: { params: Promise<{ id: st
                 </div>
               </div>
 
-              {/* Revealed on Hover */}
               <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 pr-2">
                 <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-gray-500 dark:text-gray-400">
                   Book Now
@@ -73,7 +72,7 @@ export default function LocationRoomsPage({ params }: { params: Promise<{ id: st
           ))
         ) : (
           <div className="py-20 text-center border border-dashed border-white/20 rounded-xl">
-            <p className="text-xs uppercase tracking-widest opacity-30">No rooms registered for this sector</p>
+            <p className="text-xs uppercase tracking-widest opacity-30">No rooms registered for this location</p>
           </div>
         )}
       </div>

@@ -23,10 +23,14 @@ export default function ProfilePage() {
 
   return (
     <ProtectedRoute>
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto py-12 px-6">
         <header className="mb-12">
-          {/* Spacer to align with Rooms/Locations pages */}
-          <div className="h-[29px] mb-4 invisible" aria-hidden="true" />
+          <Link
+            href="/"
+            className="text-[10px] uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity flex items-center mb-4"
+          >
+            ← Back to home
+          </Link>
           <h1 className="text-3xl font-bold tracking-tighter pb-2">Profile</h1>
           <p className="text-xs uppercase tracking-[0.2em] opacity-50">
             System access for {user?.username || 'Authenticated User'}
@@ -34,7 +38,6 @@ export default function ProfilePage() {
         </header>
 
         <div className="flex flex-col">
-          {/* Navigation Links */}
           {menuItems.map((item) => (
             <Link
               key={item.href}
@@ -53,7 +56,6 @@ export default function ProfilePage() {
             </Link>
           ))}
 
-          {/* Logout Button (Stylized as a card) */}
           <button
             onClick={handleLogout}
             className="group flex items-center justify-between py-6 border border-red-500/20 hover:bg-red-50 dark:hover:bg-red-500/5 transition-colors px-6 rounded-xl mb-2 text-left w-full cursor-pointer"

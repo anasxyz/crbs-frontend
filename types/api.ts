@@ -38,4 +38,7 @@ export interface Location {
 
 export interface Weather {
   // TODO: add weather data
+  locationId: string;
+  date: string;
+  forecastedTemperatureC: number;
 }
