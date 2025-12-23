@@ -27,25 +27,25 @@ export const UserService = {
  * location service
  */
 export const LocationService = {
-  getAll: () => api.get<Location[]>('/locations'),
-  getById: (id: string) => api.get<Location>(`/locations/${id}`),
-  create: (data: Partial<Location>) => api.post<Location>('/locations', data),
-  update: (id: string, data: Partial<Location>) => api.patch<Location>(`/locations/${id}`, data),
-  delete: (id: string) => api.delete(`/locations/${id}`),
+  getAll: () => api.get<Location[]>('location/all'),
+  getById: (id: string) => api.get<Location>(`/location/${id}`),
+  create: (data: Partial<Location>) => api.post<Location>('/location', data),
+  update: (id: string, data: Partial<Location>) => api.patch<Location>(`/location/${id}`, data),
+  delete: (id: string) => api.delete(`/location/${id}`),
 };
 
 /**
  * room service
  */
 export const RoomService = {
-  getAll: () => api.get<Room[]>('/rooms'),
-  getById: (id: string) => api.get<Room>(`/rooms/${id}`),
-  getByLocation: (locationId: string) => api.get<Room[]>(`/rooms/location/${locationId}`),
+  getAll: () => api.get<Room[]>('/room'),
+  getById: (id: string) => api.get<Room>(`/room/${id}`),
+  getByLocationId: (locationId: string) => api.get<Room[]>(`/location/${locationId}/rooms`),
   getAvailability: (roomId: string, date: string) =>
-    api.get<any>(`/rooms/${roomId}/availability?date=${date}`),
-  create: (data: Partial<Room>) => api.post<Room>('/rooms', data),
-  update: (id: string, data: Partial<Room>) => api.patch<Room>(`/rooms/${id}`, data),
-  delete: (id: string) => api.delete(`/rooms/${id}`),
+    api.get<any>(`/room/${roomId}/availability?date=${date}`),
+  create: (data: Partial<Room>) => api.post<Room>('/room', data),
+  update: (id: string, data: Partial<Room>) => api.patch<Room>(`/room/${id}`, data),
+  delete: (id: string) => api.delete(`/room/${id}`),
 };
 
 /**

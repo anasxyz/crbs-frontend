@@ -31,7 +31,9 @@ export interface Room {
 export interface Location {
   locationId: string;
   name: string;
-  address?: string;
+  city: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Weather {
