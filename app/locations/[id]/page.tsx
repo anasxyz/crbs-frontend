@@ -3,7 +3,6 @@
 import { useEffect, useState, use } from 'react';
 import { RoomService } from '@/lib/apiServices';
 import { Room } from '@/types/api';
-import _button from '@/components/ui/_button';
 import Link from 'next/link';
 import _loader from '@/components/ui/_loader';
 
@@ -38,15 +37,16 @@ export default function LocationRoomsPage({ params }: { params: Promise<{ id: st
           ← Back to locations
         </Link>
         <h1 className="text-3xl font-bold tracking-tighter pb-2">Available Rooms</h1>
-        <p className="text-xs uppercase tracking-[0.2em] opacity-50">Sector ID: {id}</p>
+        <p className="text-xs uppercase tracking-[0.2em] opacity-50">Location ID: {id}</p>
       </header>
 
-      <div className="flex flex-col border-white/30 dark:border-white/30">
+      <div className="flex flex-col">
         {rooms.length > 0 ? (
           rooms.map((room) => (
-            <div
+            <Link
               key={room.roomId}
-              className="group flex items-center justify-between py-6 border border-white/30 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors px-4 rounded-xl mb-2"
+              href={`/book/${room.roomId}`}
+              className="group flex items-center justify-between py-6 border border-white/30 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors px-6 rounded-xl mb-2"
             >
               <div className="space-y-1">
                 <h2 className="text-lg font-medium tracking-tight group-hover:translate-x-1 transition-transform uppercase">
@@ -62,13 +62,14 @@ export default function LocationRoomsPage({ params }: { params: Promise<{ id: st
                 </div>
               </div>
 
-              <_button
-                text="Book Now"
-                variant="outline"
-                onClick={() => console.log(`Booking ${room.roomId}`)}
-                className="text-[12px] py-1 px-4"
-              />
-            </div>
+              {/* Revealed on Hover */}
+              <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 pr-2">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-gray-500 dark:text-gray-400">
+                  Book Now
+                </span>
+                <span className="text-xl">→</span>
+              </div>
+            </Link>
           ))
         ) : (
           <div className="py-20 text-center border border-dashed border-white/20 rounded-xl">

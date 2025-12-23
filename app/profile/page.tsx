@@ -3,12 +3,10 @@
 import { useAuth } from '@/context/AuthProvider';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { signOut } from 'aws-amplify/auth';
-
-import _navbar from '@/components/ui/_navbar';
-import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function ProfilePage() {
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -18,35 +16,59 @@ export default function ProfilePage() {
     }
   };
 
+  const menuItems = [
+    { label: 'Account Information', sub: 'Manage your personal profile', href: '/profile/info' },
+    { label: 'Manage My Bookings', sub: 'View and edit active reservations', href: '/profile/bookings' },
+  ];
+
   return (
     <ProtectedRoute>
-      <div className="max-w-2xl mx-auto mt-20 px-8">
+      <div className="max-w-5xl mx-auto px-6">
         <header className="mb-12">
-          <h1 className="text-3xl font-bold tracking-tighter mb-2">Account</h1>
-          <p className="text-sm uppercase tracking-widest opacity-50">Manage your settings and bookings</p>
+          {/* Spacer to align with Rooms/Locations pages */}
+          <div className="h-[29px] mb-4 invisible" aria-hidden="true" />
+          <h1 className="text-3xl font-bold tracking-tighter pb-2">Profile</h1>
+          <p className="text-xs uppercase tracking-[0.2em] opacity-50">
+            System access for {user?.username || 'Authenticated User'}
+          </p>
         </header>
 
-        <section className="space-y-10">
-          {/* User Info Section */}
-          <div className="border-t pt-8">
-            <h2 className="text-xs uppercase tracking-[0.2em] opacity-40 mb-4 font-semibold">User Details</h2>
-            <div className="space-y-1">
-              <p className="text-lg font-medium">{user?.username}</p>
-              <p className="text-sm opacity-60">Member since 2025</p>
-            </div>
-          </div>
-
-          {/* Actions Section */}
-          <div className="border-t pt-8">
-            <h2 className="text-xs uppercase tracking-[0.2em] opacity-40 mb-4 font-semibold">Security</h2>
-            <button
-              onClick={handleLogout}
-              className="text-sm text-red-500 hover:text-red-600 transition-colors uppercase tracking-widest font-medium"
+        <div className="flex flex-col">
+          {/* Navigation Links */}
+          {menuItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="group flex items-center justify-between py-6 border border-white/30 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors px-6 rounded-xl mb-2"
             >
-              Sign out of system
-            </button>
-          </div>
-        </section>
+              <div className="space-y-1">
+                <h2 className="text-lg font-medium tracking-tight group-hover:translate-x-1 transition-transform uppercase">
+                  {item.label}
+                </h2>
+                <p className="text-[10px] uppercase tracking-widest group-hover:translate-x-1 transition-transform opacity-40">
+                  {item.sub}
+                </p>
+              </div>
+              <span className="text-xl opacity-0 group-hover:opacity-100 transition-opacity pr-2">→</span>
+            </Link>
+          ))}
+
+          {/* Logout Button (Stylized as a card) */}
+          <button
+            onClick={handleLogout}
+            className="group flex items-center justify-between py-6 border border-red-500/20 hover:bg-red-50 dark:hover:bg-red-500/5 transition-colors px-6 rounded-xl mb-2 text-left w-full cursor-pointer"
+          >
+            <div className="space-y-1">
+              <h2 className="text-lg font-medium tracking-tight group-hover:translate-x-1 transition-transform uppercase text-red-500">
+                Sign Out
+              </h2>
+              <p className="text-[10px] uppercase tracking-widest group-hover:translate-x-1 transition-transform text-red-500/60">
+                Terminate current session
+              </p>
+            </div>
+            <span className="text-xl opacity-0 group-hover:opacity-100 transition-opacity pr-2 text-red-500">→</span>
+          </button>
+        </div>
       </div>
     </ProtectedRoute>
   );
